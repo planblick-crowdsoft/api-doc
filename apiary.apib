@@ -1,80 +1,136 @@
 FORMAT: 1A
-HOST: https://polls.apiblueprint.org/
+HOST: https://api.planblick.com
 
-# planBLICK
+# planBLICK API
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+The planBLICK API is a mostly json based API allowing consumers to 
+build their completely own frontend for planBLICK applications.
 
-## Questions Collection [/questions]
+# Group Account and login-management
 
-### List All Questions [GET]
+IMPORTANT: The planBLICK API separates between "Account" and "Login" 
+where "Account" (also frequently referred to as "consumer") is sort of a container for n logins. Think of an "Account"
+as something a company has one, where logins is something each employee
+of the company has one. During the account-registration, a corresponding 
+login is created automatically.
 
-+ Response 200 (application/json)
+## Registration [/registration]
+### Starts registration process [POST]
+planBLICK JS-Framework Example: [Codepen](https://codepen.io/planBLICK/pen/xxEEgjx)
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
 
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
++ Request
 
     + Headers
 
-            Location: /questions/2
+            Content-Type: application/json
+
+    + Body
+    
+            {
+                "username": "foobar",
+                "password": "secretpassword"
+            }
+
++ Response 200
+    + Headers
+
+            Content-Type: text/plain
+            apikey: myapikey
+
+    + Body
+            
+            {
+                "taskid": "d87d4cc9-f88f-4260-be6e-4601baf71927"
+            }
+
+## Getting an apikey [/login]
+### Perform Basic-Auth to obtain an apikey [GET]
+planBLICK JS-Framework Examples: 
+
+[Get apikey only](https://codepen.io/planBLICK/pen/NWRRpBV) if you only want to get the apikey in a pure programmatical way
+
+
+[Perform login ](https://codepen.io/planBLICK/pen/ZEppegB) if you only want to create a form and let the framework do the heavy lifting. In this case your login-form need two input fields with id's "login" and "password". The function will pull out the data itself, do the request and set some cookies which are most commonly used with the api.
+
+
++ Request
+
+    + Headers
+
+            Content-Type: application/json
+            Authorization: Basic ABC123
+
+    + Body
+    
++ Response 403
+
+    + Headers
+
+            Content-Type: application/json
 
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "message": "Invalid authentication credentials"
+            }
+
++ Response 200
+
+    + Headers
+
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "apikey": "randomApiKey",
+                "consumer_id": "consumer_id of account the login belongs to",
+                "consumer_name": "name of the account the login belongs to",
+                "created_at": creation_unixtimestamp,
+                "id": "internal id of the apikey",
+                "username": "loopback of the used login for the Basic-Auth"
+            }
+
+## Add Login [/login]
+### Create a new login for an account [POST]
+Creates a new login within the account the apikey belongs to which
+is used during the request.
+
++ Request
+
+    + Headers
+
+            Content-Type: application/json
+            apikey: myapikey
+
+    + Body
+    
+            {
+                "username": "foobar2",
+                "password": "mysecretpassword"
+            }
+
++ Response 403
+
+    + Headers
+
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "message": "Invalid authentication credentials"
+            }
+
++ Response 200
+
+    + Headers
+
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "taskid": "d87d4cc9-f88f-4260-be6e-4601baf71927"
             }
