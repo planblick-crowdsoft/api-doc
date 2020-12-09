@@ -134,3 +134,140 @@ is used during the request.
             {
                 "taskid": "d87d4cc9-f88f-4260-be6e-4601baf71927"
             }
+
+## Start lost password process [/init_credentials_lost_process]
+### Sends out a mail with a password reset link [POST]
+No JS-Framework-Example available as of now
+
++ Request
+
+    + Headers
+
+            content-type: application/json
+            apikey: myapikey
+
+    + Body
+    
+            {
+                "username": "florian.kroeber@planblick.com"
+            }
+
++ Response 403
+
+    + Headers
+
+            content-type: application/json
+
+    + Body
+
+            {
+                "result": "login not found"
+            }
+
++ Response 200
+
+    + Headers
+
+            content-type: application/json
+
+    + Body
+
+            {
+                "result": true
+            }
+
+## Delete a login **ASYNC** [/es/cmd/deleteLogin]
+### Deletes a login [POST]
+No JS-Framework-Example available as of now
+
+The calling login needs to have sufficient permissions 
+to delete the login in question. The deletion happens asynchronously,
+so it may be that the login remains for a while (although usually the 
+deletion happens within in milliseconds). There's no check whether 
+the given login exists, if not, the call will simply do nothing, so 
+make sure you send the right login name.
+
++ Request
+
+    + Headers
+
+            content-type: application/json
+            apikey: myapikey
+
+    + Body
+    
+            {
+                "username": "florian.kroeber@planblick.com"
+            }
+
++ Response 403
+
+    + Headers
+
+            content-type: application/json
+
+    + Body
+
+            {
+                "message": "Invalid authentication credentials"
+            }
+
++ Response 200
+
+    + Headers
+
+            content-type: application/json
+
+    + Body
+
+            {
+                "task_id": "311d7579-abac-44ad-b12a-9bd51389cc9d"
+            }
+
+## Delete an account **ASYNC** [/es/cmd/deleteAccount]
+### Deletes an account [POST]
+No JS-Framework-Example available as of now
+
+The calling login needs to have sufficient permissions 
+to delete the account in question. The deletion happens asynchronously,
+so it may be that the account remains for a while (although usually the 
+deletion happens within in milliseconds). There's no check whether 
+the given account exists, if not, the call will simply do nothing, so 
+make sure you send the right login name.
+
++ Request
+
+    + Headers
+
+            content-type: application/json
+            apikey: myapikey
+
+    + Body
+    
+            {
+                "id": "c001247b-3a3d-45c6-b9bd-e671917fe4c5"
+            }
+
++ Response 403
+
+    + Headers
+
+            content-type: application/json
+
+    + Body
+
+            {
+                "message": "Invalid authentication credentials"
+            }
+
++ Response 200
+
+    + Headers
+
+            content-type: application/json
+
+    + Body
+
+            {
+                "task_id": "311d7579-abac-44ad-b12a-9bd51389cc9d"
+            }
