@@ -152,7 +152,7 @@ No JS-Framework-Example available as of now
                 "username": "florian.kroeber@planblick.com"
             }
 
-+ Response 403
++ Response 404
 
     + Headers
 
@@ -162,6 +162,19 @@ No JS-Framework-Example available as of now
 
             {
                 "result": "login not found"
+            }
+
++ Response 400
+
+    + Headers
+
+            content-type: application/json
+
+    + Body
+
+            {
+                "result": "Resetting password not possible, please contact support", 
+                "error_code": "key not obtainable"
             }
 
 + Response 200
