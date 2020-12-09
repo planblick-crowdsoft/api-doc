@@ -92,10 +92,15 @@ planBLICK JS-Framework Examples:
                 "username": "loopback of the used login for the Basic-Auth"
             }
 
-## Add Login [/newlogin]
+## Add Login **ASYNC** [/newlogin]
 ### Create a new login for an account [POST]
 Creates a new login within the account the apikey belongs to which
 is used during the request.
+
+planBLICK JS-Framework Example: 
+
+In [Codepen-Example](https://codepen.io/planBLICK/pen/XWjjazd) make sure to perform login first, then add login
+
 
 + Request
 
@@ -137,7 +142,8 @@ is used during the request.
 
 ## Start lost password process [/init_credentials_lost_process]
 ### Sends out a mail with a password reset link [POST]
-No JS-Framework-Example available as of now
+
+[Codepen-Example](https://codepen.io/planBLICK/pen/abmmLYK) 
 
 + Request
 
@@ -191,7 +197,7 @@ No JS-Framework-Example available as of now
 
 ## Delete a login **ASYNC** [/es/cmd/deleteLogin]
 ### Deletes a login [POST]
-No JS-Framework-Example available as of now
+[Codepen-Example](https://codepen.io/planBLICK/pen/ExggbxO) 
 
 The calling login needs to have sufficient permissions 
 to delete the login in question. The deletion happens asynchronously,
@@ -239,7 +245,8 @@ make sure you send the right login name.
 
 ## Delete an account **ASYNC** [/es/cmd/deleteAccount]
 ### Deletes an account [POST]
-No JS-Framework-Example available as of now
+[Codepen-Example](https://codepen.io/planBLICK/pen/BaLLmLW) 
+
 
 The calling login needs to have sufficient permissions 
 to delete the account in question. The deletion happens asynchronously,
